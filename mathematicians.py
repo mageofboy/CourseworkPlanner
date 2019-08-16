@@ -2,6 +2,10 @@ from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
+import unicodedata
+import pandas as pd
+import json 
+import re
 
 def simple_get(url):
     """
@@ -56,56 +60,106 @@ class Program:
     def getHomepage(self):
         return self.homepage
 
+
+    def check_major_id(self, tag):
+        valid_ids = ['majorrequirementstexttab','majorrequirementsbstexttab','majorrequirementsbatexttab','majorrequirementsbsdegreetexttab','majorrequirementsbadegreetexttab']
+        if tag.has_attr('id'):
+            return tag['id'] in valid_ids
+        else:
+            return False
+
+
+    def check_majorreq_id(self, tag):
+        valid_ids = ['majorrequirementstextcontainer','majorrequirementsbstextcontainer','majorrequirementsbatextcontainer','majorrequirementsbsdegreetextcontainer','majorrequirementsbadegreetextcontainer']
+        if tag.has_attr('id'):
+            return tag['id'] in valid_ids
+        else:
+            return False
+
+
     def has_major(self):
-        return self.homepage_html.find(id="majorrequirementstexttab") != None
+        return self.homepage_html.find(self.check_major_id) != None 
 
 
     def has_minor(self):
         return self.homepage_html.find(id="minorrequirementstexttab") != None
 
-    # def program_major_html(self):
-    #     if self.has_major():
-    #         major = self.homepage + "#majorrequirementstext"
-    #         raw_html = simple_get(major)
-    #         html = BeautifulSoup(raw_html, 'html.parser')
-    #         return html
-    #     else:
-    #         return None
-
-    # def program_minor_html(self):
-    #     if self.has_major():
-    #         minor = self.homepage + "#minorrequirementstext"
-    #         raw_html = simple_get(minor)
-    #         html = BeautifulSoup(raw_html, 'html.parser')
-    #         return html
-    #     else:
-    #         return None
-
 
     def get_major_requirements(self):
-        for table in self.homepage_html.find_all('table', 'sc_courselist'):
-            for row in table.find_all('tr'):
-                for i in row.find_all('td'):
-                    print(i.text)
-        
+        major_html = self.homepage_html.find(self.check_majorreq_id)
+        reqs = []
+        for table in major_html.find_all('table', 'sc_courselist'):
+            s = [x.parent for x in table.find_all('td', class_="codecol")]
+            for row in s:
+                req = unicodedata.normalize("NFKD", row.find('td', class_="codecol").text.strip())
+                if "or " in req:
+                    req = req[3:]
+                title = row.find('td', class_="").text
+                units = row.find('td', class_="hourscol").text if row.find('td', class_="hourscol") != None else "-1"
+                if units == "":
+                    try:
+                        units = re.search(r"\[([\w\-]+)\]", title).groups()[0]
+                    except:
+                        units = "-1"
+                    title = title.split('[')[0].strip()
+                reqs.append({req:[title.strip(), units]})
+        return reqs
+
+
     def get_minor_requirements(self):
-        html = self.program_minor_html()
+        minor_html = self.homepage_html.find(id="minorrequirementstextcontainer")
+        reqs = []
+        for table in minor_html.find_all('table', 'sc_courselist'):
+            s = [x.parent for x in table.find_all('td', class_="codecol")]
+            for row in s:
+                req = unicodedata.normalize("NFKD", row.find('td', class_="codecol").text.strip())
+                if "or " in req:
+                    req = req[3:]
+                title = row.find('td', class_="").text
+                units = row.find('td', class_="hourscol").text if row.find('td', class_="hourscol") != None else "-1"
+                if units == "":
+                    try:
+                        units = re.search(r"\[(.+)\]", title).groups()[0]
+                    except:
+                        units = "-1"
+                    title = title.split('[')[0].strip()
+                reqs.append({req:[title, units]})
+        return reqs
 
 
 if __name__ == "__main__":
+    result_dir = 'test.json'
     raw_html = simple_get('http://guide.berkeley.edu/undergraduate/degree-programs/')
     html = BeautifulSoup(raw_html, 'html.parser')
     programs_html = html.select('li.program')
     programs = []
-    major_programs = []
-    minor_programs = []
-    for i in programs_html[:2]:
+    for i in programs_html:
         programs.append(Program(i))
 
-    for program in programs:
-        if program.has_major():
-            major_programs.append(program.name)
-        if program.has_minor():
-            minor_programs.append(program.name)
-    programs[1].get_major_requirements()
+    program_name = []
+    has_major = []
+    major_req = []
+    has_minor = []
+    minor_req = []
+    program_homepage = []
 
+
+    for program in programs:
+        program_name.append(program.getName())
+        program_homepage.append(program.getHomepage())
+        if program.has_major():
+            has_major.append(True)
+            major_req.append(program.get_major_requirements())
+        else:
+            has_major.append(False)
+            major_req.append(None)
+        if program.has_minor():
+            has_minor.append(True)
+            minor_req.append(program.get_minor_requirements())
+        else:
+            has_minor.append(False)  
+            minor_req.append(None)   
+    df = pd.DataFrame({'Name':program_name,'Homepage URL':program_homepage,'Has Major':has_major,'Has Minor':has_minor, 'Major Requirements': major_req,'Minor Requirements':minor_req})
+    d = df.to_dict(orient='records')
+    with open(result_dir, 'w', encoding='utf-8') as result_dir:
+        json.dump(d,result_dir,ensure_ascii=False,indent=4)
