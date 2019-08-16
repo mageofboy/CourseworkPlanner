@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
+const coursedata = require('./scrape_data/coursedata.json');
 
-      </header>
-    </div>
-  );
+const courses = (data) => {
+  let courselst = []
+  data.forEach(function(each){
+    courselst.push(<li><a href={each["Homepage URL"]}>{each["Name"]}</a></li>)
+  })
+  return courselst
 }
-
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <ul>
+          {courses(coursedata)}
+        </ul>
+      </div>
+    );
+  }
+}
 export default App;
