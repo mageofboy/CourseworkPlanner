@@ -128,7 +128,7 @@ class Program:
 
 
 if __name__ == "__main__":
-    result_dir = 'test.json'
+    result_dir = 'coursedata.json'
     raw_html = simple_get('http://guide.berkeley.edu/undergraduate/degree-programs/')
     html = BeautifulSoup(raw_html, 'html.parser')
     programs_html = html.select('li.program')
