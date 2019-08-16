@@ -10,6 +10,7 @@ const courses = (data) => {
   })
   return courselst
 }
+
 class App extends Component {
   render() {
     return (

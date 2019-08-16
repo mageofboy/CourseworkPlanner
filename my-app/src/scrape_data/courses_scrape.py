@@ -102,7 +102,7 @@ class Program:
                     except:
                         units = "-1"
                     title = title.split('[')[0].strip()
-                reqs.append({req:[title.strip(), units]})
+                reqs.append({"title":req,"description":title.strip(),"units":units})
         return reqs
 
 
@@ -119,11 +119,11 @@ class Program:
                 units = row.find('td', class_="hourscol").text if row.find('td', class_="hourscol") != None else "-1"
                 if units == "":
                     try:
-                        units = re.search(r"\[(.+)\]", title).groups()[0]
+                        units = re.search(r"\[([\w\-]+)\]", title).groups()[0]
                     except:
                         units = "-1"
                     title = title.split('[')[0].strip()
-                reqs.append({req:[title, units]})
+                reqs.append({"title":req,"description":title.strip(),"units":units})
         return reqs
 
 
