@@ -5,23 +5,20 @@
 ul {
   list-style-type: none;
 }
-ul a {
+li {
+  margin: 10px;
+}
+
+a:link, a:visited {
+  background-color: #C4820F;
   color: white;
-}
-
-a:link {
+  padding: 14px 25px;
+  text-align: center;
   text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
 }
 
-a:visited {
-  text-decoration: none;
-  color: #A0A0A0;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:active {
-  text-decoration: underline;
+a:hover, a:active {
+  background-color: #FFDF00;
 }
