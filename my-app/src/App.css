@@ -1,24 +1,4 @@
 .App {
-  text-align: center;
+  text-align: left;
   height: 100%;
-}
-ul {
-  list-style-type: none;
-}
-li {
-  margin: 10px;
-}
-
-a:link, a:visited {
-  background-color: #C4820F;
-  color: white;
-  padding: 14px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  border-radius: 5px;
-}
-
-a:hover, a:active {
-  background-color: #FFDF00;
 }
