@@ -81,7 +81,7 @@ class Programs extends React.Component {
                     <ul>
                         {this.state.filtered.map(item => (
                             <li key={item["Name"]} >
-                                <a href={item["Homepage URL"]}>
+                                <a href={item["Homepage URL"]} target="_blank" rel="noopener">
                                 {item["Name"]}
                                 </a>
                             </li>
