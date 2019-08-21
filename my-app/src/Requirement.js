@@ -18,7 +18,7 @@ class Requirement extends Component {
     render() {
         return (
         <div>
-            <h1> {this.name}</h1>
+            <h1> <a href={this.data["Homepage URL"]}>{this.name}</a></h1>
             <h2> Major Requirements </h2>
             <ul>
             {this.majorreq.map(item => (
