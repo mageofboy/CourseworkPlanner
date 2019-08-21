@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/CourseworkPlanner/static/css/main.f44a0e0e.chunk.css",
-    "main.js": "/CourseworkPlanner/static/js/main.7791ecfa.chunk.js",
-    "main.js.map": "/CourseworkPlanner/static/js/main.7791ecfa.chunk.js.map",
+    "main.css": "/CourseworkPlanner/static/css/main.e85de403.chunk.css",
+    "main.js": "/CourseworkPlanner/static/js/main.c1652da7.chunk.js",
+    "main.js.map": "/CourseworkPlanner/static/js/main.c1652da7.chunk.js.map",
     "runtime~main.js": "/CourseworkPlanner/static/js/runtime~main.31dccb6b.js",
     "runtime~main.js.map": "/CourseworkPlanner/static/js/runtime~main.31dccb6b.js.map",
-    "static/js/2.08f250b3.chunk.js": "/CourseworkPlanner/static/js/2.08f250b3.chunk.js",
-    "static/js/2.08f250b3.chunk.js.map": "/CourseworkPlanner/static/js/2.08f250b3.chunk.js.map",
+    "static/js/2.8988bcb7.chunk.js": "/CourseworkPlanner/static/js/2.8988bcb7.chunk.js",
+    "static/js/2.8988bcb7.chunk.js.map": "/CourseworkPlanner/static/js/2.8988bcb7.chunk.js.map",
     "index.html": "/CourseworkPlanner/index.html",
-    "precache-manifest.dbabf207b066ccf88c13f010de768ac8.js": "/CourseworkPlanner/precache-manifest.dbabf207b066ccf88c13f010de768ac8.js",
+    "precache-manifest.394f67fb0805074e4152790764e86076.js": "/CourseworkPlanner/precache-manifest.394f67fb0805074e4152790764e86076.js",
     "service-worker.js": "/CourseworkPlanner/service-worker.js",
-    "static/css/main.f44a0e0e.chunk.css.map": "/CourseworkPlanner/static/css/main.f44a0e0e.chunk.css.map"
+    "static/css/main.e85de403.chunk.css.map": "/CourseworkPlanner/static/css/main.e85de403.chunk.css.map"
   }
 }
