@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './Program.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 const coursedata = require('./scrape_data/coursedata.json');
+
 
 class Programs extends React.Component {
     constructor(props) {
@@ -76,18 +79,29 @@ class Programs extends React.Component {
       
       render() {
           return (
-              <div className="search">
-                  <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
+            <div>
+                <div className="search">
+                    <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
                     <ul>
                         {this.state.filtered.map(item => (
                             <li key={item["Name"]} >
-                                <a href={item["Homepage URL"]} target="_blank" rel="noopener">
+                                {/*
+                                <a href={item["Homepage URL"]} target="_blank" rel="noopener noreferrer">
                                 {item["Name"]}
                                 </a>
+                                */}
+
+                                <Link to={{
+                                  pathname:"requirement",
+                                  state: {"data":item}
+                                  }}>
+                                  {item["Name"]}
+                                </Link>
                             </li>
                         ))}
                     </ul>
-             </div>
+                </div>
+            </div>
           )
       }
   }
