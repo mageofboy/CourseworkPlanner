@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './requirement.css'
 const temp = {
             "title": "DOES NOT EXIST",
-            "description": "DOES NOT EXIST",
-            "units": "-1"
+            "description": "",
+            "units": ""
             }
 class Requirement extends Component {
     constructor(props) {
@@ -19,10 +19,19 @@ class Requirement extends Component {
         return (
         <div>
             <h1> {this.name}</h1>
+            <h2> Major Requirements </h2>
+            <ul>
+            {this.majorreq.map(item => (
+                <li key={item["title"]}>
+                    <p>{item["title"]} {this.hasmajor ? "- " : ""} {item["description"]} {this.hasmajor ? " - " : ""} {item["units"]}</p>
+                </li>
+            ))}
+            </ul>
+            <h2> Minor Requirements </h2>
             <ul>
             {this.minorreq.map(item => (
                 <li key={item["title"]}>
-                    <p>{item["title"]}: {item["description"]} [{item["units"]}]</p>
+                    <p>{item["title"]} {this.hasminor ? "- " : ""} {item["description"]}  {this.hasminor ? " - " : ""} {item["units"]}</p>
                 </li>
             ))}
             </ul>
