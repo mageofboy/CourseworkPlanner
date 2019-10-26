@@ -81,26 +81,28 @@ class Programs extends React.Component {
           return (
             <div>
                 <div className="search">
-                    <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
-                    <ul>
-                        {this.state.filtered.map(item => (
-                            <li key={item["Name"]} >
-                                {/*
-                                <a href={item["Homepage URL"]} target="_blank" rel="noopener noreferrer">
-                                {item["Name"]}
-                                </a>
-                                */}
-
-                                <Link to={{
-                                  pathname:"requirement",
-                                  state: {"data":item}
-                                  }}>
-                                  {item["Name"]}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
+                <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
                 </div>
+                <ul>
+                    {this.state.filtered.map(item => (
+                        <li key={item["Name"]} >
+                            {/*
+                            <a href={item["Homepage URL"]} target="_blank" rel="noopener noreferrer">
+                            {item["Name"]}
+                            </a>
+                            */}
+
+                            <Link 
+                              className="program_link"
+                              to={{
+                                pathname:"requirement",
+                                state: {"data":item}
+                              }}>
+                              {item["Name"]}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
           )
       }

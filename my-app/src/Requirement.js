@@ -14,27 +14,34 @@ class Requirement extends Component {
         this.hasminor = this.data["Has Minor"]
         this.majorreq = this.hasmajor ? this.data["Major Requirements"] : [temp]
         this.minorreq = this.hasminor ? this.data["Minor Requirements"] : [temp]
+        this.url = this.data["Homepage URL"]
     }
     render() {
         return (
         <div>
+            <a className='program_req' href={this.url} target="_blank" rel="noopener noreferrer">
             <h1> {this.name}</h1>
+            </a>
+            <div className='requirement'>
             <h2> Major Requirements </h2>
             <ul>
             {this.majorreq.map(item => (
                 <li key={item["title"]}>
-                    <p>{item["title"]} {this.hasmajor ? "- " : ""} {item["description"]} {this.hasmajor ? " - " : ""} {item["units"]}</p>
+                    <p>{item["title"]} {this.hasmajor ? " | " : ""} {item["description"]} {this.hasmajor ? " | " : ""} {item["units"]}</p>
                 </li>
             ))}
             </ul>
+            </div>
+            <div className='requirement'>
             <h2> Minor Requirements </h2>
             <ul>
             {this.minorreq.map(item => (
                 <li key={item["title"]}>
-                    <p>{item["title"]} {this.hasminor ? "- " : ""} {item["description"]}  {this.hasminor ? " - " : ""} {item["units"]}</p>
+                    <p>{item["title"]} {this.hasminor ? " | " : ""} {item["description"]}  {this.hasminor ? " | " : ""} {item["units"]}</p>
                 </li>
             ))}
             </ul>
+            </div>
         </div>
         );
     }

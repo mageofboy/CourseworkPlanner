@@ -4,3 +4,19 @@ h1, h2 {
 li {
     color: white;
 }
+a.program_req {
+    text-align: center;
+    text-decoration: none;
+}
+a:hover.program_req, a:active.program_req {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+.requirement {
+    margin: auto;
+    width: 50%;
+    background-color: #C4820F;
+    padding: 10px;
+    margin-bottom: 2%;
+    border-radius: 3px;
+}

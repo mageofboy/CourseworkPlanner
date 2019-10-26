@@ -5,7 +5,7 @@ li {
   margin: 10px;
 }
 
-a:link, a:visited {
+a:link.program_link, a:visited.program_link {
   background-color: #C4820F;
   color: white;
   padding: 14px 25px;
@@ -15,7 +15,7 @@ a:link, a:visited {
   border-radius: 5px;
 }
 
-a:hover, a:active {
+a:hover.program_link, a:active.program_link {
   background-color: #FFDF00;
 }
 input[type=text], select {
@@ -30,5 +30,4 @@ input[type=text], select {
 .search {
     width: 50%;
     margin: 10px;
-
 }
